@@ -4,20 +4,25 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
   
-    <title>Gentle Lau&#39;s Blogs</title>
+    <title>使用 gensim 训练中文词向量 (word2vec) | Gentle Lau&#39;s Blogs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Gentle Lau">
     
 
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Gentle Lau&#39;s Blogs">
-<meta property="og:url" content="http://yoursite.com/index.html">
+    <meta name="description" content="概述word2vec算法通过将语词(word)映射到N维的向量空间，然后基于这个词向量可以进行聚类，找到近似词以及词性分析等相关的应用。 关于word2vec原理和核心算法CBOW（Continuous Bag-Of- Words），Skip-Gram在 Word2vec 詞嵌入 (word embeddings) 的基本概念已经进行了解释，不过对如何训练word2vec的模型并没有太多着墨。 将">
+<meta name="keywords" content="deep learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 gensim 训练中文词向量 (word2vec)">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/使用-gensim-训练中文词向量-word2vec/index.html">
 <meta property="og:site_name" content="Gentle Lau&#39;s Blogs">
+<meta property="og:description" content="概述word2vec算法通过将语词(word)映射到N维的向量空间，然后基于这个词向量可以进行聚类，找到近似词以及词性分析等相关的应用。 关于word2vec原理和核心算法CBOW（Continuous Bag-Of- Words），Skip-Gram在 Word2vec 詞嵌入 (word embeddings) 的基本概念已经进行了解释，不过对如何训练word2vec的模型并没有太多着墨。 将">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-29T03:10:44.787Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gentle Lau&#39;s Blogs">
+<meta name="twitter:title" content="使用 gensim 训练中文词向量 (word2vec)">
+<meta name="twitter:description" content="概述word2vec算法通过将语词(word)映射到N维的向量空间，然后基于这个词向量可以进行聚类，找到近似词以及词性分析等相关的应用。 关于word2vec原理和核心算法CBOW（Continuous Bag-Of- Words），Skip-Gram在 Word2vec 詞嵌入 (word embeddings) 的基本概念已经进行了解释，不过对如何训练word2vec的模型并没有太多着墨。 将">
 
     
     <link rel="alternative" href="/atom.xml" title="Gentle Lau&#39;s Blogs" type="application/atom+xml">
@@ -70,12 +75,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2019/03/29/使用-gensim-训练中文词向量-word2vec/" title="使用 gensim 训练中文词向量 (word2vec)" itemprop="url">使用 gensim 训练中文词向量 (word2vec)</a>
@@ -89,9 +92,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>word2vec算法通过将语词(word)映射到N维的向量空间，然后基于这个词向量可以进行聚类，找到近似词以及词性分析等相关的应用。</p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖库"><span class="toc-number">2.</span> <span class="toc-text">依赖库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#语料获取"><span class="toc-number">3.</span> <span class="toc-text">语料获取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化语料"><span class="toc-number">3.1.</span> <span class="toc-text">初始化语料</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中文分词与stop-word移除"><span class="toc-number">3.2.</span> <span class="toc-text">中文分词与stop-word移除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型训练"><span class="toc-number">4.</span> <span class="toc-text">模型训练</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">5.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可视化"><span class="toc-number">6.</span> <span class="toc-text">可视化</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>word2vec算法通过将语词(word)映射到N维的向量空间，然后基于这个词向量可以进行聚类，找到近似词以及词性分析等相关的应用。</p>
 <p>关于word2vec原理和核心算法CBOW（Continuous Bag-Of- Words），Skip-Gram在 <a href="https://github.com/erhwenkuo/deep-learning-with-keras-notebooks/blob/master/8.2-word2vec-concept-introduction.ipynb" target="_blank" rel="noopener">Word2vec 詞嵌入 (word embeddings) 的基本概念</a>已经进行了解释，不过对如何训练word2vec的模型并没有太多着墨。</p>
 <p>将使用维基百科的中文语料，并使用python的gensim套件来训练word2vec的模型。  </p>
 <h2 id="依赖库"><a href="#依赖库" class="headerlink" title="依赖库"></a>依赖库</h2><ul>
@@ -203,14 +213,9 @@ from hanziconv import HanziConv
     projector.visualize_embeddings(writer,config)
     saver.save(sess,os.path.join(output_path,&quot;w2x_metadata.ckpt&quot;))
     print(&quot;Run `tensorboard --logdir={0}` to run visualize result on tensorboard&quot;.format(output_path))
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -223,24 +228,32 @@ from hanziconv import HanziConv
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="http://yoursite.com/2019/03/29/使用-gensim-训练中文词向量-word2vec/" data-title="使用 gensim 训练中文词向量 (word2vec) | Gentle Lau&#39;s Blogs" data-tsina="6042982417" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
+   	       
+	</article>
+	
+	
 
 
 
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖库"><span class="toc-number">2.</span> <span class="toc-text">依赖库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#语料获取"><span class="toc-number">3.</span> <span class="toc-text">语料获取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化语料"><span class="toc-number">3.1.</span> <span class="toc-text">初始化语料</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中文分词与stop-word移除"><span class="toc-number">3.2.</span> <span class="toc-text">中文分词与stop-word移除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型训练"><span class="toc-number">4.</span> <span class="toc-text">模型训练</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">5.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可视化"><span class="toc-number">6.</span> <span class="toc-text">可视化</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
@@ -392,12 +405,89 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
@@ -470,4 +560,4 @@ var _hmt = _hmt || [];
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
