@@ -4,20 +4,25 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
   
-    <title>Gentle Lau&#39;s Blogs</title>
+    <title>并查集简介与实践 | Gentle Lau&#39;s Blogs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Gentle Lau">
     
 
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Gentle Lau&#39;s Blogs">
-<meta property="og:url" content="http://yoursite.com/index.html">
+    <meta name="description" content="并查集森林在计算机科学中，并查集是一种树型的数据结构，用于处理一些不交集（Disjoint Sets）的合并及查询问题。并查集森林是一种将每一个集合以树表示的数据结构，其中每一个节点保存着到它的父节点的引用。在并查集森林中，每个集合的代表即是集合的根节点。主要包含两种操作：    “查找”根据其父节点的引用向根行进直到到底树根   “联合”将两棵树合并到一起，这通过将一棵树的根连接到另一棵树的根">
+<meta name="keywords" content="Leetcode,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并查集简介与实践">
+<meta property="og:url" content="http://yoursite.com/2019/03/31/并查集简介与实践/index.html">
 <meta property="og:site_name" content="Gentle Lau&#39;s Blogs">
+<meta property="og:description" content="并查集森林在计算机科学中，并查集是一种树型的数据结构，用于处理一些不交集（Disjoint Sets）的合并及查询问题。并查集森林是一种将每一个集合以树表示的数据结构，其中每一个节点保存着到它的父节点的引用。在并查集森林中，每个集合的代表即是集合的根节点。主要包含两种操作：    “查找”根据其父节点的引用向根行进直到到底树根   “联合”将两棵树合并到一起，这通过将一棵树的根连接到另一棵树的根">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-31T08:30:19.221Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gentle Lau&#39;s Blogs">
+<meta name="twitter:title" content="并查集简介与实践">
+<meta name="twitter:description" content="并查集森林在计算机科学中，并查集是一种树型的数据结构，用于处理一些不交集（Disjoint Sets）的合并及查询问题。并查集森林是一种将每一个集合以树表示的数据结构，其中每一个节点保存着到它的父节点的引用。在并查集森林中，每个集合的代表即是集合的根节点。主要包含两种操作：    “查找”根据其父节点的引用向根行进直到到底树根   “联合”将两棵树合并到一起，这通过将一棵树的根连接到另一棵树的根">
 
     
     <link rel="alternative" href="/atom.xml" title="Gentle Lau&#39;s Blogs" type="application/atom+xml">
@@ -70,12 +75,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2019/03/31/并查集简介与实践/" title="并查集简介与实践" itemprop="url">并查集简介与实践</a>
@@ -89,9 +92,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <h2 id="并查集森林"><a href="#并查集森林" class="headerlink" title="并查集森林"></a>并查集森林</h2><p>在计算机科学中，并查集是一种树型的数据结构，用于处理一些不交集（Disjoint Sets）的合并及查询问题。并查集森林是一种将每一个集合以树表示的数据结构，其中每一个节点保存着到它的父节点的引用。在并查集森林中，每个集合的代表即是集合的根节点。主要包含两种操作：  </p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#并查集森林"><span class="toc-number">1.</span> <span class="toc-text">并查集森林</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本操作"><span class="toc-number">2.</span> <span class="toc-text">基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化"><span class="toc-number">2.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查找"><span class="toc-number">2.2.</span> <span class="toc-text">查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并"><span class="toc-number">2.3.</span> <span class="toc-text">合并</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化方法"><span class="toc-number">3.</span> <span class="toc-text">优化方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#按大小合并"><span class="toc-number">3.1.</span> <span class="toc-text">按大小合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路径压缩"><span class="toc-number">3.2.</span> <span class="toc-text">路径压缩</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#典型问题"><span class="toc-number">4.</span> <span class="toc-text">典型问题</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="并查集森林"><a href="#并查集森林" class="headerlink" title="并查集森林"></a>并查集森林</h2><p>在计算机科学中，并查集是一种树型的数据结构，用于处理一些不交集（Disjoint Sets）的合并及查询问题。并查集森林是一种将每一个集合以树表示的数据结构，其中每一个节点保存着到它的父节点的引用。在并查集森林中，每个集合的代表即是集合的根节点。主要包含两种操作：  </p>
 <ul>
 <li>“查找”根据其父节点的引用向根行进直到到底树根  </li>
 <li>“联合”将两棵树合并到一起，这通过将一棵树的根连接到另一棵树的根  </li>
@@ -210,14 +220,9 @@ public:
 <li><a href="https://leetcode.com/problems/redundant-connection/" target="_blank" rel="noopener">Redundant Connection</a>  </li>
 <li><a href="https://leetcode.com/problems/largest-component-size-by-common-factor/" target="_blank" rel="noopener">Largest Component Size by Common Factor</a></li>
 </ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -230,190 +235,45 @@ public:
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="http://yoursite.com/2019/03/31/并查集简介与实践/" data-title="并查集简介与实践 | Gentle Lau&#39;s Blogs" data-tsina="6042982417" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/03/29/使用-gensim-训练中文词向量-word2vec/" title="使用 gensim 训练中文词向量 (word2vec)" itemprop="url">使用 gensim 训练中文词向量 (word2vec)</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Gentle Lau" target="_blank" itemprop="author">Gentle Lau</a>
-		
-  </p><p class="article-time">
-    <time datetime="2019-03-29T02:45:37.000Z" itemprop="datePublished"> Published 2019-03-29</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>word2vec算法通过将语词(word)映射到N维的向量空间，然后基于这个词向量可以进行聚类，找到近似词以及词性分析等相关的应用。</p>
-<p>关于word2vec原理和核心算法CBOW（Continuous Bag-Of- Words），Skip-Gram在 <a href="https://github.com/erhwenkuo/deep-learning-with-keras-notebooks/blob/master/8.2-word2vec-concept-introduction.ipynb" target="_blank" rel="noopener">Word2vec 詞嵌入 (word embeddings) 的基本概念</a>已经进行了解释，不过对如何训练word2vec的模型并没有太多着墨。</p>
-<p>将使用维基百科的中文语料，并使用python的gensim套件来训练word2vec的模型。  </p>
-<h2 id="依赖库"><a href="#依赖库" class="headerlink" title="依赖库"></a>依赖库</h2><ul>
-<li>Python 2.7  </li>
-<li>gensim  </li>
-<li>jieba  </li>
-<li>hanziconv  </li>
-</ul>
-<p>脚本导入上述库示例如下L：  </p>
-<pre><code>import jieba
-from gensim.corpora import WikiCorpus
-from gensim.models import word2vec
-from gensim.models.keyedvectors import KeyedVectors
-from hanziconv import HanziConv   
-</code></pre><p>如遇到库缺失的情况可通过 pip 安装：  </p>
-<pre><code>pip install XXX  
-</code></pre><h2 id="语料获取"><a href="#语料获取" class="headerlink" title="语料获取"></a>语料获取</h2><p>到 <a href="https://dumps.wikimedia.org/zhwiki/" target="_blank" rel="noopener">中文维基百科dump</a> 的目录下找到最新的dump资料档zhwiki-yyyymmdd-pages-articles.xml.bz2,下载到项目目录下。  </p>
-<h3 id="初始化语料"><a href="#初始化语料" class="headerlink" title="初始化语料"></a>初始化语料</h3><p>通过WikiCorpus初始化预料，然后由get_texts()可迭代每一篇wikipedia的文章，它所回传的是一个tokens list，我们以空白符将这些 tokens 串接起来，统一输出到同一份文本文件里。 </p>
-<pre><code>def wiki2txt(filepath):
-    wiki_corpus = WikiCorpus(filepath,dictionary={})
-    with open(&quot;wiki_text.txt&quot;,&quot;w&quot;) as wf:
-        count = 0
-        for text in wiki_corpus.get_texts():
-            text = [sentence.encode(&quot;utf-8&quot;) for sentence in text]
-            wf.write(&quot; &quot;.join(text) + &quot;\n&quot;)
-            count += 1
-            if count % 10000 == 0:
-                print(&quot;%d articles have been processed&quot; % count)  
-</code></pre><h3 id="中文分词与stop-word移除"><a href="#中文分词与stop-word移除" class="headerlink" title="中文分词与stop-word移除"></a>中文分词与stop-word移除</h3><p>清完XML标签的语料了，再来就是要把语料中每个句子，进一步拆解成语词，这个步骤称为「分词」。中文分词的工具有很多，这里采用的是jieba。在wiki的中文文档中有简体跟繁体混在一起的情形，所以我们在分词前，还需加上一道简繁转换的手续。  </p>
-<pre><code>def segmentation():
-    stop_words = set()
-    with open(&quot;stop_words.txt&quot;,&quot;r&quot;) as rf:
-        for line in rf:
-            stop_words.add(line.strip(&quot;\n&quot;))
-
-    wf = open(&quot;simplified.txt&quot;,&quot;w&quot;)
-        with open(&quot;wiki_text.txt&quot;,&quot;r&quot;) as rf:
-        for line in rf:
-            wf.write(HanziConv.toSimplified(line).encode(&quot;utf-8&quot;))
-    wf.close()
-
-    wf = open(&quot;segmentation.txt&quot;,&quot;w&quot;)
-    with open(&quot;simplified.txt&quot;,&quot;r&quot;) as rf:
-        for line in rf:
-            line = line.strip(&quot;\n&quot;)
-            pos = jieba.cut(line,cut_all=False)
-            for word in pos:
-                word = word.encode(&quot;utf-8&quot;)
-                if word not in stop_words:
-                     wf.write(word + &quot; &quot;)
-    wf.close()
-</code></pre><h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p>这是最简单的部分，同时也是最困难的部分，简单的是程序代码，困难的是词向量效能上的微调与后训练。</p>
-<p>相关参数:</p>
-<ul>
-<li>sentences:    这是要训练的句子集</li>
-<li>size:    这表示的是训练出的词向量会有几维</li>
-<li>alpha:    机器学习中的学习率，这东西会逐渐收敛到 min_alpha</li>
-<li>sg:    sg=1表示采用skip-gram,sg=0 表示采用cbow</li>
-<li>window:    滑动窗口大小</li>
-<li>workers:    线程数目，建议别超过 4</li>
-<li>min_count:    若这个词出现的次数小于<code>min_count</code>，那他就不会被视为训练对象  </li>
-</ul>
-<pre><code>def train():
-    sentence = word2vec.Text8Corpus(&quot;segmentation.txt&quot;)
-    model = word2vec.Word2Vec(sentence,size=300,window=10,min_count=5,workers=4,sg=1)
-    model.wv.save_word2vec_format(&quot;wiki300.model.bin&quot;, binary = True)
-</code></pre><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><pre><code>def test():
-    word_vectors = KeyedVectors.load_word2vec_format(&quot;wiki300.model.bin&quot;,binary=True)
-    query_list=[&quot;校长&quot;]
-    res = word_vectors.most_similar(query_list[0].decode(&quot;utf-8&quot;), topn = 5)
-    for item in res:
-        print(item[0] + &quot;,&quot; + str(item[1]))
-
-    query_list=[&quot;爸爸&quot;,&quot;妈妈&quot;]
-    res = word_vectors.similarity(query_list[0].decode(&quot;utf-8&quot;), query_list[1].decode(&quot;utf-8&quot;))
-    print(res)
-
-    query_list=[&quot;爸爸&quot;,&quot;老公&quot;,&quot;妈妈&quot;]
-    print(&quot;%s之于%s，如%s之于&quot; % (query_list[0], query_list[1], query_list[2]))
-    res = word_vectors.most_similar(positive = [query_list[0].decode(&quot;utf-8&quot;), query_list[1].decode(&quot;utf-8&quot;)], negative = [query_list[2].decode(&quot;utf-8&quot;)], topn = 5)
-    for item in res:
-        print(item[0] + &quot;,&quot; + str(item[1]))  
-</code></pre><h2 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h2><p>利用 tesorboard   </p>
-<pre><code>def visualize(output_path):
-    model = KeyedVectors.load_word2vec_format(&quot;wiki300.model.bin&quot;,binary=True)
-    meta_file = &quot;w2x_metadata.tsv&quot;
-    placeholder = np.zeros((len(model.wv.index2word),300))
-    with open(os.path.join(output_path,meta_file),&apos;wb&apos;) as file_metadata:
-        for i, word in enumerate(model.wv.index2word):
-            placeholder[i] = model[word]
-            if word == &quot;&quot;:
-                print(&quot;Emply Line, should replecaed by any thing else, or will cause a bug of tensorboard&quot;)
-                file_metadata.write(&quot;&lt;Empty Line&gt;\n&quot;)
-            else:
-                file_metadata.write(word.encode(&quot;utf-8&quot;) + &quot;\n&quot;)
-
-    sess = tf.InteractiveSession()
-    embedding = tf.Variable(placeholder,trainable=False,name=&quot;w2x_metadata&quot;)
-    tf.global_variables_initializer().run()
-
-    saver = tf.train.Saver()
-    writer = tf.summary.FileWriter(output_path,sess.graph)
-
-    config = projector.ProjectorConfig()
-    embed = config.embeddings.add()
-    embed.tensor_name = &quot;w2x_metadata&quot;
-    embed.metadata_path = meta_file
-
-    projector.visualize_embeddings(writer,config)
-    saver.save(sess,os.path.join(output_path,&quot;w2x_metadata.ckpt&quot;))
-    print(&quot;Run `tensorboard --logdir={0}` to run visualize result on tensorboard&quot;.format(output_path))
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/deep-learning/">deep learning</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2019/03/29/使用-gensim-训练中文词向量-word2vec/" title="使用 gensim 训练中文词向量 (word2vec)">
+ <strong>下一篇：</strong><br> 
+ <span>使用 gensim 训练中文词向量 (word2vec)
+</span>
+</a>
 </div>
 
-</footer>
+</nav>
 
-
-    </article>
-
-
+	
 
 
 
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#并查集森林"><span class="toc-number">1.</span> <span class="toc-text">并查集森林</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本操作"><span class="toc-number">2.</span> <span class="toc-text">基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化"><span class="toc-number">2.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查找"><span class="toc-number">2.2.</span> <span class="toc-text">查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并"><span class="toc-number">2.3.</span> <span class="toc-text">合并</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化方法"><span class="toc-number">3.</span> <span class="toc-text">优化方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#按大小合并"><span class="toc-number">3.1.</span> <span class="toc-text">按大小合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路径压缩"><span class="toc-number">3.2.</span> <span class="toc-text">路径压缩</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#典型问题"><span class="toc-number">4.</span> <span class="toc-text">典型问题</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
@@ -575,12 +435,89 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
@@ -653,4 +590,4 @@ var _hmt = _hmt || [];
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
