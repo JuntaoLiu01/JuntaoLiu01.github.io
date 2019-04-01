@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://juntaoliu01.github.io/"/>
   <updated>2019-03-31T08:30:19.221Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://juntaoliu01.github.io/</id>
   
   <author>
     <name>Gentle Lau</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>并查集简介与实践</title>
-    <link href="http://yoursite.com/2019/03/31/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://yoursite.com/2019/03/31/并查集简介与实践/</id>
+    <link href="http://juntaoliu01.github.io/2019/03/31/%E5%B9%B6%E6%9F%A5%E9%9B%86%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://juntaoliu01.github.io/2019/03/31/并查集简介与实践/</id>
     <published>2019-03-31T07:52:05.000Z</published>
     <updated>2019-03-31T08:30:19.221Z</updated>
     
@@ -35,16 +35,16 @@
     </summary>
     
     
-      <category term="Leetcode" scheme="http://yoursite.com/tags/Leetcode/"/>
+      <category term="Leetcode" scheme="http://juntaoliu01.github.io/tags/Leetcode/"/>
     
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+      <category term="算法" scheme="http://juntaoliu01.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>使用 gensim 训练中文词向量 (word2vec)</title>
-    <link href="http://yoursite.com/2019/03/29/%E4%BD%BF%E7%94%A8-gensim-%E8%AE%AD%E7%BB%83%E4%B8%AD%E6%96%87%E8%AF%8D%E5%90%91%E9%87%8F-word2vec/"/>
-    <id>http://yoursite.com/2019/03/29/使用-gensim-训练中文词向量-word2vec/</id>
+    <link href="http://juntaoliu01.github.io/2019/03/29/%E4%BD%BF%E7%94%A8-gensim-%E8%AE%AD%E7%BB%83%E4%B8%AD%E6%96%87%E8%AF%8D%E5%90%91%E9%87%8F-word2vec/"/>
+    <id>http://juntaoliu01.github.io/2019/03/29/使用-gensim-训练中文词向量-word2vec/</id>
     <published>2019-03-29T02:45:37.000Z</published>
     <updated>2019-03-29T03:10:44.787Z</updated>
     
@@ -60,7 +60,7 @@
     </summary>
     
     
-      <category term="deep learning" scheme="http://yoursite.com/tags/deep-learning/"/>
+      <category term="deep learning" scheme="http://juntaoliu01.github.io/tags/deep-learning/"/>
     
   </entry>
   
